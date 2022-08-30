@@ -133,6 +133,7 @@ class MobileScanner(private val activity: Activity, private val textureRegistry:
             val ratio: Int? = call.argument<Int>("ratio")
             val torch: Boolean = call.argument<Boolean>("torch") ?: false
             val formats: List<Int>? = call.argument<List<Int>>("formats")
+            val zoom: Float? = call.argument<String>("zoom")!!.toFloat()
 
             if (formats != null) {
                 val formatsList: MutableList<Int> = mutableListOf()
@@ -207,6 +208,9 @@ class MobileScanner(private val activity: Activity, private val textureRegistry:
 
                 // Enable torch if provided
                 camera!!.cameraControl.enableTorch(torch)
+
+                // Set zoom level default 0.0 if not provided
+                camera!!.cameraControl.setLinearZoom(zoom!!)
 
                 val resolution = preview!!.resolutionInfo!!.resolution
                 val portrait = camera!!.cameraInfo.sensorRotationDegrees % 180 == 0

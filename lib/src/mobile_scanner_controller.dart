@@ -47,6 +47,7 @@ class MobileScannerController {
   final bool? torchEnabled;
   // Whether to return the image buffer with the Barcode event
   final bool returnImage;
+  late final String zoom;
 
   /// If provided, the scanner will only detect those specific formats.
   ///
@@ -69,6 +70,7 @@ class MobileScannerController {
     this.formats,
     this.autoResume = true,
     this.returnImage = false,
+    this.zoom = '0.0f',
   }) {
     // In case a new instance is created before calling dispose()
     if (_controllerHashcode != null) {
@@ -173,6 +175,7 @@ class MobileScannerController {
     arguments['facing'] = facing.index;
     if (ratio != null) arguments['ratio'] = ratio;
     if (torchEnabled != null) arguments['torch'] = torchEnabled;
+    arguments['zoom'] = zoom;
 
     if (formats != null) {
       if (Platform.isAndroid) {
